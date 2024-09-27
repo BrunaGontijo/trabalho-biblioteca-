@@ -1,0 +1,147 @@
+from tkinter import messagebox, ttk
+import mysql.connector
+from mysql.connector import Error
+import tkinter as tk
+# Função para criar conexão com o banco de dados
+def carregar_livros(idlivros,nome,autor,genero,idioma,localizacao,status):
+    
+    conn= mysql.connector.connect(
+        host='localhost',
+        user='root',
+        password='acesso123',
+        database='bibilioteca',
+
+    )
+    cursor= conn.cursor()
+    cursor.execute('INSERT INTO livros(idlivros,nome,autor,genero,idioma,localizacao,status) VALUES(%s,%s,%s,%s,%s,%s,%s)', 
+    (idlivros, nome,autor,genero,idioma,localizacao,status))
+    conn.commit()
+    conn.close()
+    if conn:
+        try:
+            cursor = conexao.cursor()
+            cursor.execute("SELECT * FROM livros")  # Alterado para a tabela correta 'livros'
+            for row in cursor.fetchall():
+                tree_livros.insert("", tk.END, values=row)  # Insere os dados na tabela
+            cursor.close()
+        except Error as e:
+            messagebox.showerror("Erro", f"Erro ao carregar os livros: {e}")
+        finally:
+      
+          conn.close()
+def main_menu(): 
+       global root
+       root = tk.Tk()
+       root.title('feira de livros')
+       root.geometry("700x700")
+
+# janela livros
+root= tk.Tk()
+root.title('adicionar livros')
+root.geometry("700x700")
+text = tk.Label(root, width=130,)
+# entrada nome
+text.grid()
+Nomelabel = tk.Label(root, text="idlivros")
+Nomelabel.grid()
+Nomeentry=tk.Entry(root, width=30)
+Nomeentry.grid(column=0, row=28)
+Nomeentry.grid(column=0, row=28)
+
+# entrada autor
+
+autorlabel=tk.Label (root, text="Nome")
+autorlabel.grid()
+autorentry = tk.Entry(root,text="Nome")
+autorentry.grid()
+
+# entrada telefone 
+
+generolabel=tk.Label(root, text="Autor")
+generolabel.grid()
+generoEntry=tk.Entry(root, text="Autor")
+generoEntry.grid()
+
+# data 
+idiomalabel=tk.Label(root, text="Genero")
+idiomalabel.grid()
+idiomaEntry=tk.Entry(root, text="Genero")
+idiomaEntry.grid()
+
+# entrada endereco
+
+localizaçãolabel=tk.Label (root, text="Localização")
+localizaçãolabel.grid()
+localizaçãoentry = tk.Entry(root,text="Localização")
+localizaçãoentry.grid()
+
+# entrada telefone 
+
+statuslabel=tk.Label(root, text="Status")
+statuslabel.grid()
+statusEntry=tk.Entry(root, text="Status")
+statusEntry.grid()
+
+# data 
+idiomalabel=tk.Label(root, text="Idioma")
+idiomalabel.grid()
+idiomaEntry=tk.Entry(root, text="Idioma")
+idiomaEntry.grid()
+
+class adicionar_livros:
+    def __init__(self, conn,idlivros,nome,autor,genero,idioma,localização,status ):
+      self.conn = conn 
+      self.cursor=conn.cursor()
+      def adicionar_livros(self,idlivros,nome,autor,genero,idioma,localização,status):
+         try:
+            # excuta consulta de inserção 
+            self.cursor.execute("INSERT INTO livros(idlivros,nome,autor,genero,idioma,localização,status) VALUES (%s, %s, %s,%s,%s,%s,%s,%s)", (nome, autor, genero))
+            self.conn.commit()
+            print('livro adicionado com sucesso!')
+            self.conn.commit()
+         except mysql.connector.Error as err:
+            print(f'erro ao adicionar livro:{err}')
+         finally:
+            def  fechar_conexao(self):
+               # não feche a conexão pois pode ser reutilizada
+                  self.cursor.close()
+                  self.conn.close()
+                 
+                         
+class salvar_livros:
+ def salvar (self,nome,autor,genero,idlivros,idioma,localização,status ):
+    def __init__(self,conn,nome,autor,genero,idlivros,idioma,localização,status):
+        self.conn = conn 
+        self.cursor = conn.cursor()
+        print('livro salvo com sucesso!')
+        self.coon.commit()
+    cursor.execute("INSERT INTO livros (nome,autor,genero,idlivros,idioma,localização,status) VALUES (%s, %s, %s,%s,%s,%s,%s)", (nome,autor,genero,idlivros,idioma,localização,status))
+    self.conn.commit()
+    salvar_livros()
+    
+
+class editar_livros:
+   def editar_livros(nome, autor, genero,idlivros,idioma,localização,status):
+       cursor.execute("UPDATE livros (nome, autor, genero,idlivros,idioma,localização,status) VALUES (%s, %s, %s,%s,%s,%s,%s)", (nome, autor, genero, idlivros,idioma,localização,status))
+       self.conn.commit()
+       editar_livros()
+
+class excluir_livros:
+   def excluir_livros(nome,autor,genero,idlivros,idioma,localização,status):
+       cursor.execute("DELETE FROM livros (nome, autor, genero,idlivros,idioma,localização,status) VALUES (%s, %s, %s,%s,%s,%s,%s)", (nome,autor,genero, idlivros,idioma,localização,status))
+       self.conn.commit()
+       excluir_livros()
+# meus  botões 
+tk.Button(root, text="adicionar livros", command=lambda: adicionar_livros(Nomeentry.get(), autorentry.get(), generoEntry.get(), idiomaEntry.get() localizaçãoentry.get(), statusentry.get())) 
+
+
+
+ 
+      
+    
+ 
+
+        
+
+root.mainloop()
+
